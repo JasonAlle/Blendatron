@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c451e88839305ce429cab8d2b8a5b9af, type: 3}
+  m_Name: Spawner
+  m_EditorClassIdentifier: 
+  Orbs:
+  - {fileID: 3880539395165776525, guid: 657e89dabd30dd348aa6803f54d4dfad, type: 3}
+  - {fileID: 5853022299948841396, guid: dd19249e03702d54e8c0983251531067, type: 3}
+  - {fileID: 4581432229110254435, guid: b05c29da961103244af48b374ccb5627, type: 3}
+  - {fileID: 4051489940280716401, guid: f3a24b3a5e3f9444da4d80474b368f3e, type: 3}
+  - {fileID: 517635080626368136, guid: 586eaf54106b1f9428694c44b766cd52, type: 3}

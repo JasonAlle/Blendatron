@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private Controls_Listener input;
+    [SerializeField]
+    private Rigidbody2D body;
 
     [SerializeField]
     private float speed;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveDir == 0.0f)
             return;
-        transform.position += new Vector3(moveDir, 0, 0) * (speed * Time.deltaTime);
+
+        body.position += new Vector2(moveDir, 0.0f) * (speed * Time.deltaTime);
     }
 }

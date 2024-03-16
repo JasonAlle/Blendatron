@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c57c3519ff1d7404cb1c1018f04131c2, type: 3}
-  m_Name: LargestOrb
+  m_Name: 3Orb
   m_EditorClassIdentifier: 
-  tier: 6
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  tier: 2
+  tex: {fileID: 940474361598248816, guid: 2985e399b9bef054688c02b517e296a7, type: 3}
+  score: 10
+  essence: 8
+  renderScale: 0.4
+  collideRad: 1.265
