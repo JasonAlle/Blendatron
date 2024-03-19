@@ -5,7 +5,9 @@ using UnityEngine;
 public class OrbSpawner : ScriptableObject
 {
     [SerializeField]
-    private List<Orb> Orbs = new List<Orb>();
+    private List<OrbData> orbDatas = new List<OrbData>();
+    [SerializeField]
+    private Orb spawningOrb;
     private int orbToSpawn;
     private int orbLastSpawn;
     private uint spawnCount;
@@ -38,11 +40,11 @@ public class OrbSpawner : ScriptableObject
         }
         if (isEndGame)
         {
-            orbspawnNum = Random.Range(0, Orbs.Count);
+            orbspawnNum = Random.Range(0, orbDatas.Count);
         }
         else
         {
-        orbspawnNum = Random.Range(0, Orbs.Count -1);
+        orbspawnNum = Random.Range(0, orbDatas.Count -1);
         }
         orbToSpawn = orbspawnNum;
         Debug.Log("Picked: " + orbToSpawn);
@@ -53,6 +55,15 @@ public class OrbSpawner : ScriptableObject
         orbLastSpawn = orbToSpawn;
         spawnCount++;
         Debug.Log("Spawned: " + orbToSpawn);
-        return Instantiate(Orbs[orbToSpawn]);
+        Orb spawnedOrb = Instantiate(spawningOrb);
+        spawnedOrb.SetData(orbDatas[orbToSpawn]);
+        return spawnedOrb;
+    }
+    public Orb SpawnSpecificOrb(OrbData orb, Vector3 pos, Quaternion rot)
+    {
+        Debug.Log("Spawned: " + orb);
+        Orb spawnedOrb = Instantiate(spawningOrb, pos, rot);
+        spawnedOrb.SetData(orb);
+        return spawnedOrb;
     }
 }

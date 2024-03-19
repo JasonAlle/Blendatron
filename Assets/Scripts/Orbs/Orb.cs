@@ -13,10 +13,25 @@ public class Orb : MonoBehaviour
     private Rigidbody2D body;
     [SerializeField]
     private SpriteRenderer spriteRend;
+    [SerializeField]
+    private OrbExplosion explosion;
+   // [SerializeField]
+    //private CircleCollider2D triggerCollider;
 
     public event System.Action<Vector2, OrbTiers> EvolutionEvent;
     private void OnEnable()
     {
+        if (data != null)
+        {
+        spriteRend.sprite = data.Tex;
+        InitBounds();
+        SetConstraints(RigidbodyConstraints2D.None, true);
+        collide.enabled = false;
+        }
+    }
+    public void SetData(OrbData orbData)
+    {
+        data = orbData;
         spriteRend.sprite = data.Tex;
         InitBounds();
         SetConstraints(RigidbodyConstraints2D.None, true);
@@ -37,12 +52,21 @@ public class Orb : MonoBehaviour
     {
         transform.localScale = new Vector3(data.RenderScale, data.RenderScale, 1.0f);
         collide.radius = data.CollideRad;
+
+       // triggerCollider.radius = data.CollideRad;
     }
     public void DropTheFucker()
     {
         SetConstraints(RigidbodyConstraints2D.None);
         collide.enabled = true;
     }
+
+    public void HasEvolved()
+    {
+        DropTheFucker();
+        explosion.IsEvolved();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Orb"))

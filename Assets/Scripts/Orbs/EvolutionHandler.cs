@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class EvolutionHandler : MonoBehaviour
 {
-    //[SerializeField]
-    //EvolutionListener evoListner;
     [SerializeField]
-    private List<Orb> Orbs = new List<Orb>();
+    OrbSpawner spawner;
+    [SerializeField]
+    private List<OrbData> orbs = new List<OrbData>();
     private static EvolutionHandler Instance = default;
     public static event System.Action<Vector2, OrbTiers> EvolutionEvent;
     public static event System.Action EndGameEvent;
     private float pointResetTimer = 0.0f;
     private Vector2 pointHappenedAlready;
     private Vector2 pointResetPoint;
+    [SerializeField]
+    private float baseLiftAmount = .2f;
     private void Awake()
     {
         if (Instance != null)
@@ -27,11 +29,16 @@ public class EvolutionHandler : MonoBehaviour
     }
     public static void Evolve(Vector2 point, OrbTiers tier)
     {
+        if (tier == OrbTiers.tier8)
+            return;
         if (Instance.pointHappenedAlready == point)
             return;
         Instance.pointHappenedAlready = point;
-        Orb orbSpawn = Instantiate(Instance.Orbs[((int)tier + 1)], new Vector3(point.x, point.y, 0.0f), Quaternion.identity);
-        orbSpawn.DropTheFucker();
+        float liftAmount = Instance.baseLiftAmount + ((int)tier / 2);
+        Vector3 spawnPos = new Vector3(point.x, point.y + liftAmount, 0.0f);
+        Orb orbSpawn = Instance.spawner.SpawnSpecificOrb(Instance.orbs[((int)tier + 1)], spawnPos, Quaternion.identity);
+        //Tell Orb it lives through evolution
+        orbSpawn.HasEvolved();
         EvolutionEvent?.Invoke(point, tier);
         if (orbSpawn.Data.Tier >= OrbTiers.tier7)
         {

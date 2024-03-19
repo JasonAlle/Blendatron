@@ -1284,15 +1284,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32c0d75d4683e843aca33dd739985c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Orbs:
-  - {fileID: 3880539395165776525, guid: 657e89dabd30dd348aa6803f54d4dfad, type: 3}
-  - {fileID: 5853022299948841396, guid: dd19249e03702d54e8c0983251531067, type: 3}
-  - {fileID: 4581432229110254435, guid: b05c29da961103244af48b374ccb5627, type: 3}
-  - {fileID: 4051489940280716401, guid: f3a24b3a5e3f9444da4d80474b368f3e, type: 3}
-  - {fileID: 517635080626368136, guid: 586eaf54106b1f9428694c44b766cd52, type: 3}
-  - {fileID: 8396234491189007885, guid: 1848be55407331d4dad9c9974e4f7b09, type: 3}
-  - {fileID: 2188026483384756917, guid: b2c0afda8d4881545a706210845d3786, type: 3}
-  - {fileID: 7059836831703759349, guid: da353d472bd05904d9e801803ed65aa6, type: 3}
+  spawner: {fileID: 11400000, guid: 4a725585eaf8d964bbe7d1f3974d1a98, type: 2}
+  orbs:
+  - {fileID: 11400000, guid: 294a52af81bb41f43810e3ffc53f2bc0, type: 2}
+  - {fileID: 11400000, guid: 1ef5cf50b5057b64d9cf9df1e5eebade, type: 2}
+  - {fileID: 11400000, guid: 8d8731ff50c2d9a40ad66d6cee639bd7, type: 2}
+  - {fileID: 11400000, guid: 1028b55a09ccb5042a5d13dcef892fb4, type: 2}
+  - {fileID: 11400000, guid: 8d32b6cac9d42524baf57f4e23f75578, type: 2}
+  - {fileID: 11400000, guid: 7d674a9b78ed12b42aee723baf3c34b5, type: 2}
+  - {fileID: 11400000, guid: 5b3364bf78641a14f9d1c2a73f658b0e, type: 2}
+  - {fileID: 11400000, guid: 19d27188a75941345a1dce0e30b777ad, type: 2}
 --- !u!4 &1042661865
 Transform:
   m_ObjectHideFlags: 0
@@ -1318,7 +1319,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1392064473}
   - component: {fileID: 1392064472}
-  - component: {fileID: 1392064471}
   - component: {fileID: 1392064470}
   m_Layer: 0
   m_Name: UI_Camera
@@ -1371,14 +1371,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1392064471
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392064469}
-  m_Enabled: 1
 --- !u!20 &1392064472
 Camera:
   m_ObjectHideFlags: 0

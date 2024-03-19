@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c451e88839305ce429cab8d2b8a5b9af, type: 3}
   m_Name: Spawner
   m_EditorClassIdentifier: 
-  Orbs:
-  - {fileID: 3880539395165776525, guid: 657e89dabd30dd348aa6803f54d4dfad, type: 3}
-  - {fileID: 5853022299948841396, guid: dd19249e03702d54e8c0983251531067, type: 3}
-  - {fileID: 4581432229110254435, guid: b05c29da961103244af48b374ccb5627, type: 3}
-  - {fileID: 4051489940280716401, guid: f3a24b3a5e3f9444da4d80474b368f3e, type: 3}
-  - {fileID: 517635080626368136, guid: 586eaf54106b1f9428694c44b766cd52, type: 3}
+  orbDatas:
+  - {fileID: 11400000, guid: 294a52af81bb41f43810e3ffc53f2bc0, type: 2}
+  - {fileID: 11400000, guid: 1ef5cf50b5057b64d9cf9df1e5eebade, type: 2}
+  - {fileID: 11400000, guid: 8d8731ff50c2d9a40ad66d6cee639bd7, type: 2}
+  - {fileID: 11400000, guid: 1028b55a09ccb5042a5d13dcef892fb4, type: 2}
+  - {fileID: 11400000, guid: 8d32b6cac9d42524baf57f4e23f75578, type: 2}
+  spawningOrb: {fileID: 3880539395165776525, guid: 657e89dabd30dd348aa6803f54d4dfad, type: 3}
