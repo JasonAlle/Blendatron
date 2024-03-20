@@ -11,21 +11,23 @@ public class OrbSpawner : ScriptableObject
     private int orbToSpawn;
     private int orbLastSpawn;
     private uint spawnCount;
-    bool isEndGame = false;
+    bool isLateGame = false;
+    [SerializeField]
+    private StateListner stateListner;
 
     private void OnEnable()
     {
         spawnCount = 0;
         orbToSpawn = -1;
         orbLastSpawn = 3;
-        isEndGame = false;
-        EvolutionHandler.EndGameEvent += HandleEndGame;
+        isLateGame = false;
+        stateListner.LateGameStateEvent += HandleLateGame;
         //Decide what Orb to spawn
     }
 
-    private void HandleEndGame()
+    private void HandleLateGame()
     {
-        isEndGame = true;
+        isLateGame = true;
     }
 
     public int PickOrb()
@@ -38,7 +40,7 @@ public class OrbSpawner : ScriptableObject
             Debug.Log("Picked: " + orbToSpawn);
             return orbToSpawn;
         }
-        if (isEndGame)
+        if (isLateGame)
         {
             orbspawnNum = Random.Range(0, orbDatas.Count);
         }

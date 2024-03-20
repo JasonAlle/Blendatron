@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1028b55a09ccb5042a5d13dcef892fb4, type: 2}
   - {fileID: 11400000, guid: 8d32b6cac9d42524baf57f4e23f75578, type: 2}
   spawningOrb: {fileID: 3880539395165776525, guid: 657e89dabd30dd348aa6803f54d4dfad, type: 3}
+  stateListner: {fileID: 11400000, guid: fbe57ffa8eca1d84b8b87768d5c54c38, type: 2}

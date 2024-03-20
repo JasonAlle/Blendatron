@@ -13,6 +13,12 @@ public class OrbExplosion : MonoBehaviour
 
     public void IsEvolved()
     {
+        OrbData parentData = this.GetComponentInParent<Orb>().Data;
+        if (parentData != null)
+        {
+            expRadius += parentData.CollideRad;
+            expForce += (float)parentData.Tier / 3.0f;
+        }
         Explode();
     }
 

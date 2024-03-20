@@ -15,10 +15,6 @@ public class Orb : MonoBehaviour
     private SpriteRenderer spriteRend;
     [SerializeField]
     private OrbExplosion explosion;
-   // [SerializeField]
-    //private CircleCollider2D triggerCollider;
-
-    public event System.Action<Vector2, OrbTiers> EvolutionEvent;
     private void OnEnable()
     {
         if (data != null)
@@ -52,8 +48,6 @@ public class Orb : MonoBehaviour
     {
         transform.localScale = new Vector3(data.RenderScale, data.RenderScale, 1.0f);
         collide.radius = data.CollideRad;
-
-       // triggerCollider.radius = data.CollideRad;
     }
     public void DropTheFucker()
     {

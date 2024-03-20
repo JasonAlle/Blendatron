@@ -25,11 +25,11 @@ public class OrbData : ScriptableObject
     private Sprite tex;
     public Sprite Tex { get { return tex; } set { tex = value;} } 
     [SerializeField]
-    private uint score;
-    public uint Score { get { return score; } set { score = value; } }
+    private int score;
+    public int Score { get { return score; } set { score = value; } }
     [SerializeField]
-    private uint essence;
-    public uint Essence { get { return essence; } set { essence = value; } }
+    private int essence;
+    public int Essence { get { return essence; } set { essence = value; } }
     [SerializeField]
     private float renderScale;
     public float RenderScale { get { return renderScale; } set { renderScale = value; } }
