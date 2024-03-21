@@ -14,6 +14,7 @@ public class MatternizerController : MonoBehaviour
     private void OnEnable()
     {
         slider.value = 0;
+        slider.maxValue = matterListener.MaxMatter;
         matterListener.MatterIncreaseEvent += HandleMatterIncrease;
     }
     private void OnDisable()
@@ -26,6 +27,7 @@ public class MatternizerController : MonoBehaviour
         slider.value = amount;
         if (slider.value >= slider.maxValue)
         {
+            Debug.Log("Entering Blend Mode!");
         stateListner.OnBlendState();
         }
     }

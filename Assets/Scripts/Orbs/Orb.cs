@@ -9,12 +9,20 @@ public class Orb : MonoBehaviour
     public OrbData Data { get { return data; } set { data = value; } }
     [SerializeField]
     private CircleCollider2D collide;
+    public CircleCollider2D OrbCollider { get { return collide; } }
     [SerializeField]
     private Rigidbody2D body;
+    public Rigidbody2D OrbBody { get { return body; } }
     [SerializeField]
     private SpriteRenderer spriteRend;
     [SerializeField]
     private OrbExplosion explosion;
+    private bool isHighTier;
+    private int orbID;
+    private bool isblended = false;
+    public bool IsBlended { get { return isblended; } set { isblended = value; } }
+    public int OrbID { get { return orbID; } set { orbID = value; } }
+    public bool IsHighTier { get { return isHighTier; } set { isHighTier = value; } }
     private void OnEnable()
     {
         if (data != null)
@@ -32,6 +40,10 @@ public class Orb : MonoBehaviour
         InitBounds();
         SetConstraints(RigidbodyConstraints2D.None, true);
         collide.enabled = false;
+        if (data.Tier >= OrbTiers.tier6)
+        {
+            isHighTier = true;
+        }
     }
     public void SetConstraints(RigidbodyConstraints2D constraint, bool isInit = false)
     {
@@ -49,8 +61,14 @@ public class Orb : MonoBehaviour
         transform.localScale = new Vector3(data.RenderScale, data.RenderScale, 1.0f);
         collide.radius = data.CollideRad;
     }
+    public void PrepareForBlend()
+    {
+        this.tag = "HighOrb";
+        this.gameObject.layer = LayerMask.NameToLayer("HighOrb");
+    }
     public void DropTheFucker()
     {
+        OrbManager.AddOrb(this);
         SetConstraints(RigidbodyConstraints2D.None);
         collide.enabled = true;
     }
@@ -78,6 +96,7 @@ public class Orb : MonoBehaviour
             {
                 
                 EvolutionHandler.Evolve(collision.GetContact(0).point, data.Tier);
+                OrbManager.RemoveOrb(this);
                 Destroy(collision.gameObject);
                 Destroy(this.gameObject);
             }

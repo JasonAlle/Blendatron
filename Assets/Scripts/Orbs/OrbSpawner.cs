@@ -19,7 +19,7 @@ public class OrbSpawner : ScriptableObject
     {
         spawnCount = 0;
         orbToSpawn = -1;
-        orbLastSpawn = 3;
+        orbLastSpawn = 2;
         isLateGame = false;
         stateListner.LateGameStateEvent += HandleLateGame;
         //Decide what Orb to spawn
@@ -40,7 +40,7 @@ public class OrbSpawner : ScriptableObject
             Debug.Log("Picked: " + orbToSpawn);
             return orbToSpawn;
         }
-        if (isLateGame)
+        if (isLateGame && orbDatas.Count >= 5)
         {
             orbspawnNum = Random.Range(0, orbDatas.Count);
         }

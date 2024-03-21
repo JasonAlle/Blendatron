@@ -23,6 +23,7 @@ public class ScoreController : MonoBehaviour
     private void HandleScoreIncrease(int amount)
     {
         //Change Text
+        Debug.Log("Score: " + amount.ToString());
         scoreText.text = amount.ToString();
     }
 }

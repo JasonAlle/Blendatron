@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner: {fileID: 11400000, guid: 4a725585eaf8d964bbe7d1f3974d1a98, type: 2}
   input: {fileID: 11400000, guid: 0d1d5aae79477204e81781652c701a3f, type: 2}
+  stateListner: {fileID: 11400000, guid: fbe57ffa8eca1d84b8b87768d5c54c38, type: 2}
 --- !u!1 &4097958497941460195
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 1220677963066898489}
   - component: {fileID: 2005033721372274462}
   m_Layer: 7
-  m_Name: Player_Sprite
+  m_Name: PlayerSprite
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +145,7 @@ GameObject:
   - component: {fileID: 1109848162855775342}
   - component: {fileID: 4804651949792737372}
   m_Layer: 7
-  m_Name: Player_Object
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +222,7 @@ GameObject:
   - component: {fileID: 6614822346808426392}
   - component: {fileID: 7687740252060388307}
   m_Layer: 7
-  m_Name: Player_Collision
+  m_Name: PlayerCollision
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

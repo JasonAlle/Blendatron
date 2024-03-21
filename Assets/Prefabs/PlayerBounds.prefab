@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7958544878660170663}
   - component: {fileID: 1035458513104443289}
   m_Layer: 0
-  m_Name: Right_Bounds
+  m_Name: RightBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3732456325880634168}
   - component: {fileID: 2501901150645443453}
   m_Layer: 0
-  m_Name: Left_Bounds
+  m_Name: LeftBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8796981202424672691}
   m_Layer: 0
-  m_Name: Player_Bounds
+  m_Name: PlayerBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

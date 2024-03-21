@@ -7,6 +7,10 @@ public class MatternizerListener : ScriptableObject
 {
     [SerializeField]
     private int matter;
+    public int Matter { get { return matter; } }
+    [SerializeField]
+    private int maxMatter;
+    public int MaxMatter { get { return maxMatter; } }
 
     private void OnEnable()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,35 @@ public class Dropper : MonoBehaviour
     OrbSpawner spawner;
     [SerializeField]
     private Controls_Listener input;
+    [SerializeField]
+    private StateListner stateListner;
     private bool isDropping;
     private Orb orbToDrop;
     private float spawnOrbTimer = 0.0f;
+    bool isDisabled = false;
 
     private void OnEnable()
     {
         input.DropEvent += HandleDrop;
-        
+        stateListner.BlendStateEvent += HandleBlend;
     }
     private void OnDisable()
     {
         input.DropEvent -= HandleDrop;
+        stateListner.BlendStateEvent -= HandleBlend;
+
     }
+
+    private void HandleBlend()
+    {
+        isDisabled = true;
+        List<Orb> highOrbs = OrbManager.GetHighTierOrbs();
+        for (int i = 0; i < highOrbs.Count; i++)
+        {
+            highOrbs[i].PrepareForBlend();
+        }
+    }
+
     private void Start()
     {
         spawner.PickOrb();
@@ -28,6 +45,8 @@ public class Dropper : MonoBehaviour
     }
     private void HandleDrop()
     {
+        if (isDisabled)
+            return;
         isDropping = true;
         orbToDrop.transform.SetParent(null);
         orbToDrop.DropTheFucker();

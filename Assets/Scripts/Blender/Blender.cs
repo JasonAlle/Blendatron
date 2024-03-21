@@ -5,47 +5,44 @@ using UnityEngine;
 public class Blender : MonoBehaviour
 {
     [SerializeField]
-    private StateListner stateListener;
+    private GameObject highBladeObject;
     [SerializeField]
-    private BoxCollider2D blenderTrigger;
+    private GameObject midBladeObject;
+    [SerializeField]
+    private GameObject lowBladeObject;
     [SerializeField]
     private ScoreListener scoreListener;
+    [SerializeField]
+    private float highBladeSpeed;
+    [SerializeField]     
+    private float midBladeSpeed;
+    [SerializeField]      
+    private float lowBladeSpeed;
+
+    private bool isBlending = false;
+
 
     private void OnEnable()
     {
-        stateListener.BlendStateEvent += HandleBlend;
+        isBlending = false;
+        //Play animation
+        //Turn on collision
+        Debug.Log("Starting Blender!!!");
+        //Play sound
+        //After animation
+        isBlending = true;
     }
     private void OnDisable()
     {
-        stateListener.BlendStateEvent -= HandleBlend;
 
     }
-    private void HandleBlend()
+    private void FixedUpdate()
     {
-        //Play animation
-        //Swap collision to trigger
-        blenderTrigger.enabled = true;
-        //Play sound
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Orb"))
-        {
+        if (isBlending == false)
             return;
-        }
-        else
-        {
-            Orb orbcollision = collision.gameObject.GetComponentInChildren<Orb>();
-            if (orbcollision.Data.Tier < OrbTiers.tier6)
-            {
-                return;
-            }
-            else
-            {
-                int score = orbcollision.Data.Score;
-                scoreListener.OnScoreIncrease(score);
-            }
-        }
+        highBladeObject.transform.Rotate(Vector3.up, highBladeSpeed * Time.fixedDeltaTime);
+        midBladeObject.transform.Rotate(Vector3.up, midBladeSpeed * Time.fixedDeltaTime);
+        lowBladeObject.transform.Rotate(Vector3.up, lowBladeSpeed * Time.fixedDeltaTime);
+
     }
 }
