@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,23 +12,50 @@ public class MatternizerController : MonoBehaviour
     private Slider slider;
     [SerializeField]
     private StateListner stateListner;
+    private bool isBlending = false;
     private void OnEnable()
     {
         slider.value = 0;
         slider.maxValue = matterListener.MaxMatter;
         matterListener.MatterIncreaseEvent += HandleMatterIncrease;
+        stateListner.BlendStateEvent += HandleBlend;
+        stateListner.GameplayStateEvent += HandleGame;
     }
     private void OnDisable()
     {
         matterListener.MatterIncreaseEvent -= HandleMatterIncrease;
+        stateListner.BlendStateEvent -= HandleBlend;
+        stateListner.GameplayStateEvent -= HandleGame;
     }
+
+    private void HandleGame()
+    {
+        slider.value = 0;
+        slider.maxValue += 100;
+        isBlending = false;
+    }
+
+    private void HandleBlend()
+    {
+        isBlending = true;
+    }
+
     private void HandleMatterIncrease(int amount)
     {
+        if (isBlending)
+            return;
         //Change Amount
         slider.value = amount;
-        if (slider.value >= slider.maxValue)
+        if (slider.value >= slider.maxValue )
         {
-            Debug.Log("Entering Blend Mode!");
+            Debug.Log("Matternizer is trying to activate blender!");
+            if (EvolutionHandler.IsEvolving)
+            {
+                Debug.Log("Matternizer is telling evolution to do it");
+                EvolutionHandler.StateIsWaiting = true;
+                return;
+            }
+            Debug.Log("Matternizer entering Blend Mode!");
         stateListner.OnBlendState();
         }
     }

@@ -27,7 +27,6 @@ public class Blender : MonoBehaviour
         isBlending = false;
         //Play animation
         //Turn on collision
-        Debug.Log("Starting Blender!!!");
         //Play sound
         //After animation
         isBlending = true;

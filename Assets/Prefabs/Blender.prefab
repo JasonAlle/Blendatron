@@ -317,9 +317,9 @@ MonoBehaviour:
   midBladeObject: {fileID: 1924790259774154890}
   lowBladeObject: {fileID: 4664632233314232939}
   scoreListener: {fileID: 11400000, guid: b0a814f428aa52c4f810d16e753e63e0, type: 2}
-  highBladeSpeed: 65
-  midBladeSpeed: -40
-  lowBladeSpeed: 120
+  highBladeSpeed: 700
+  midBladeSpeed: -790
+  lowBladeSpeed: 1200
 --- !u!1 &2877840080744150501
 GameObject:
   m_ObjectHideFlags: 0

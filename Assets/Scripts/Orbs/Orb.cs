@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,14 @@ public class Orb : MonoBehaviour
     public bool IsBlended { get { return isblended; } set { isblended = value; } }
     public int OrbID { get { return orbID; } set { orbID = value; } }
     public bool IsHighTier { get { return isHighTier; } set { isHighTier = value; } }
+    private bool isSpawnedEvolved = false;
+    public bool IsSpawnedEvolved { get { return isSpawnedEvolved; } set { isSpawnedEvolved = value; } }
+    private Vector3 scaleIncrement = new Vector3(0.1f, 0.1f, 0.0f);
+    [SerializeField]
+    private float speedOfExpansion;
+    private float affectorAmount;
+    public float AffectorAmount { get { return affectorAmount; } set { affectorAmount = value; } }
+    private bool isFinishedExpanding = false;
     private void OnEnable()
     {
         if (data != null)
@@ -39,12 +48,41 @@ public class Orb : MonoBehaviour
         spriteRend.sprite = data.Tex;
         InitBounds();
         SetConstraints(RigidbodyConstraints2D.None, true);
+        body.mass = data.OrbWeight;
         collide.enabled = false;
         if (data.Tier >= OrbTiers.tier6)
         {
             isHighTier = true;
         }
+        SetAffectorAmount();
     }
+
+    private void SetAffectorAmount()
+    {
+        //switch (data.Tier)
+        //{
+        //    case OrbTiers.tier1:
+        //        affectorAmount = data.OrbWeight - 
+        //        break;
+        //    case OrbTiers.tier2:
+        //        break;
+        //    case OrbTiers.tier3:
+        //        break;
+        //    case OrbTiers.tier4:
+        //        break;
+        //    case OrbTiers.tier5:
+        //        break;
+        //    case OrbTiers.tier6:
+        //        break;
+        //    case OrbTiers.tier7:
+        //        break;
+        //    case OrbTiers.tier8:
+        //        break;
+        //    default:
+        //        break;
+        //}
+    }
+
     public void SetConstraints(RigidbodyConstraints2D constraint, bool isInit = false)
     {
         if (isInit)
@@ -66,21 +104,28 @@ public class Orb : MonoBehaviour
         this.tag = "HighOrb";
         this.gameObject.layer = LayerMask.NameToLayer("HighOrb");
     }
+    public void PrepareForGame()
+    {
+        this.tag = "Orb";
+        this.gameObject.layer = LayerMask.NameToLayer("Orb");
+    }
     public void DropTheFucker()
     {
         OrbManager.AddOrb(this);
         SetConstraints(RigidbodyConstraints2D.None);
         collide.enabled = true;
     }
-
     public void HasEvolved()
     {
+        isSpawnedEvolved = true;
+        this.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.0f);
         DropTheFucker();
         explosion.IsEvolved();
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!isFinishedExpanding)
+            return;
         if (!collision.gameObject.CompareTag("Orb"))
         {
             return;
@@ -99,6 +144,21 @@ public class Orb : MonoBehaviour
                 OrbManager.RemoveOrb(this);
                 Destroy(collision.gameObject);
                 Destroy(this.gameObject);
+            }
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (isFinishedExpanding == false)
+        {
+            if (isSpawnedEvolved && this.gameObject.transform.localScale.x < data.RenderScale)
+            {
+                this.gameObject.transform.localScale += scaleIncrement * speedOfExpansion * Time.fixedDeltaTime;
+            }
+            if (this.gameObject.transform.localScale.x >= data.RenderScale)
+            {
+                isFinishedExpanding = true;
+                InitBounds();
             }
         }
     }

@@ -36,5 +36,8 @@ public class OrbData : ScriptableObject
     [SerializeField]
     private float collideRad;
     public float CollideRad { get { return collideRad; } set { collideRad = value; } }
+    [SerializeField]
+    private float orbWeight;
+    public float OrbWeight { get { return orbWeight; } set { orbWeight = value; } }
 
 }

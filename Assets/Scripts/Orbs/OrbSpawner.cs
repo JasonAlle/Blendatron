@@ -37,7 +37,7 @@ public class OrbSpawner : ScriptableObject
         if (spawnlastOrb <= 5)
         {
             orbToSpawn = orbLastSpawn;
-            Debug.Log("Picked: " + orbToSpawn);
+         //   Debug.Log("Picked: " + orbToSpawn);
             return orbToSpawn;
         }
         if (isLateGame && orbDatas.Count >= 5)
@@ -49,21 +49,21 @@ public class OrbSpawner : ScriptableObject
         orbspawnNum = Random.Range(0, orbDatas.Count -1);
         }
         orbToSpawn = orbspawnNum;
-        Debug.Log("Picked: " + orbToSpawn);
+       // Debug.Log("Picked: " + orbToSpawn);
         return orbToSpawn;
     }
     public Orb Spawn()
     {
         orbLastSpawn = orbToSpawn;
         spawnCount++;
-        Debug.Log("Spawned: " + orbToSpawn);
+       // Debug.Log("Spawned: " + orbToSpawn);
         Orb spawnedOrb = Instantiate(spawningOrb);
         spawnedOrb.SetData(orbDatas[orbToSpawn]);
         return spawnedOrb;
     }
     public Orb SpawnSpecificOrb(OrbData orb, Vector3 pos, Quaternion rot)
     {
-        Debug.Log("Spawned: " + orb);
+       // Debug.Log("Spawned: " + orb);
         Orb spawnedOrb = Instantiate(spawningOrb, pos, rot);
         spawnedOrb.SetData(orb);
         return spawnedOrb;

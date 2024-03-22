@@ -14,6 +14,7 @@ public class StateListner : ScriptableObject
 
     public void OnGameplayState()
     {
+        Debug.Log("Gameplay state invoked!");
         GameplayStateEvent?.Invoke();
     }
     public void OnGameOverState()
@@ -22,6 +23,7 @@ public class StateListner : ScriptableObject
     }
     public void OnBlendState()
     {
+        Debug.Log("Blender state invoked!");
         BlendStateEvent?.Invoke();
     }
     public void OnMenuState()

@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 6265168129209379640, guid: a2cc14dbe939178459ce31485038bf5f, type: 3}
-  expForce: 4
-  expRadius: 3
+  expUpForce: 2.5
+  expForwardForce: 0.8
+  expRadius: 0.3
+  noBounceOffset: -0.09
 --- !u!1 &5655866597876263832
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +102,7 @@ MonoBehaviour:
   body: {fileID: 5093881991382701943}
   spriteRend: {fileID: -4985977035504793283}
   explosion: {fileID: 754270520834324837}
+  speedOfExpansion: 15
 --- !u!58 &4414134389686734578
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -18,3 +18,4 @@ MonoBehaviour:
   essence: 8
   renderScale: 0.4
   collideRad: 1.265
+  orbWeight: 2.5

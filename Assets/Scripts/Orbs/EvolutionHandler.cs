@@ -20,6 +20,10 @@ public class EvolutionHandler : MonoBehaviour
     private StateListner stateListener;
     [SerializeField]
     private MatternizerListener matternizerListener;
+    private bool isEvolving = false;
+    public static bool IsEvolving { get { return Instance.isEvolving; } }
+    private bool stateIsWaiting = false;
+    public static bool StateIsWaiting { get { return Instance.stateIsWaiting; } set { Instance.stateIsWaiting = value; } }
     private void Awake()
     {
         if (Instance != null)
@@ -36,17 +40,26 @@ public class EvolutionHandler : MonoBehaviour
             return;
         if (Instance.pointHappenedAlready == point)
             return;
+        Instance.isEvolving = true;
+        Debug.Log("EvolutionHandler is evolving!");
         Instance.pointHappenedAlready = point;
-        float liftAmount = Instance.baseLiftAmount + ((float)tier / 2.8f);
-        Vector3 spawnPos = new Vector3(point.x, point.y + liftAmount, 0.0f);
+        Vector3 spawnPos = new Vector3(point.x, point.y, 0.0f);
         Orb orbSpawn = Instance.spawner.SpawnSpecificOrb(Instance.orbs[((int)tier + 1)], spawnPos, Quaternion.identity);
         //Tell Orb it lives through evolution
         orbSpawn.HasEvolved();
-        Instance.matternizerListener.OnMatterIncrease(orbSpawn.Data.Essence);
         EvolutionEvent?.Invoke(point, tier);
         if (orbSpawn.Data.Tier >= OrbTiers.tier7)
         {
             Instance.stateListener.OnLateGameState();
+        }
+        Instance.matternizerListener.OnMatterIncrease(orbSpawn.Data.Essence);
+        Debug.Log("EvolutionHandler is finished evolving!");
+        Instance.isEvolving = false;
+        if (Instance.stateIsWaiting)
+        {
+            Debug.Log("EvolutionHandler is activating blender");
+            Instance.stateIsWaiting = false;
+            Instance.stateListener.OnBlendState();
         }
     }
     private void Update()

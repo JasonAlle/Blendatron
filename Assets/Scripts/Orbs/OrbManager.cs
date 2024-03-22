@@ -38,7 +38,7 @@ public class OrbManager : MonoBehaviour
         List<Orb> highOrbs = new List<Orb>();
         foreach (Orb orb in Instance.orbs)
         {
-            if (orb.IsHighTier)
+            if (orb.IsHighTier && orb != null)
             {
                 highOrbs.Add(orb);
             }

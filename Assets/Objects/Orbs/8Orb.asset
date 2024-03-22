@@ -15,6 +15,7 @@ MonoBehaviour:
   tier: 7
   tex: {fileID: 8731146150934298954, guid: b727163257626e44ea9e26287db6c539, type: 3}
   score: 1000
-  essence: 250
+  essence: 100
   renderScale: 0.9
   collideRad: 1.92
+  orbWeight: 40

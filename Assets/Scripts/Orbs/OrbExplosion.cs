@@ -7,17 +7,37 @@ public class OrbExplosion : MonoBehaviour
     [SerializeField]
     private GameObject explosionEffect;
     [SerializeField]
-    private float expForce;
+    private float expUpForce;
+    [SerializeField]
+    private float expForwardForce;
     [SerializeField]
     private float expRadius;
-
+    private float staticExpRadius;
+    private Vector2 expForceVec;
+    private Vector3 noBouncePoint;
+    [SerializeField]
+    private float noBounceOffset;
+    private void OnEnable()
+    {
+        staticExpRadius = expRadius;
+        ////expForceVec = new Vector2(1.5f, expForce);
+        //OrbData parentData = this.GetComponentInParent<Orb>().Data;
+        //if (parentData != null)
+        //{
+        //    expRadius = (parentData.CollideRad * parentData.RenderScale) + staticExpRadius;
+        //    noBounceOffset += expRadius;
+        //    noBouncePoint = new Vector3(transform.position.x, transform.position.y - noBounceOffset, 0.0f);
+        //}
+    }
     public void IsEvolved()
     {
+        //staticExpRadius = expRadius;
         OrbData parentData = this.GetComponentInParent<Orb>().Data;
         if (parentData != null)
         {
-            expRadius += parentData.CollideRad;
-            expForce += (float)parentData.Tier / 3.0f;
+            expRadius = (parentData.CollideRad * parentData.RenderScale) + staticExpRadius;
+            noBounceOffset += expRadius;
+            noBouncePoint = new Vector3(transform.position.x,transform.position.y - noBounceOffset, 0.0f );
         }
         Explode();
     }
@@ -37,10 +57,30 @@ public class OrbExplosion : MonoBehaviour
 
             if (rb != null)
             {
-                GameObject explosion = Instantiate(explosionEffect, this.gameObject.transform);
+                Vector3 rbPos = rb.gameObject.transform.position;
+                if (rbPos.y <= (transform.position.y - noBounceOffset))
+                    continue;
+                if (!rb.gameObject.CompareTag("Orb"))
+                    continue;
+                Debug.Log("Explosion for a gameobject!!!");
+                OrbData orbDataHit = rb.gameObject.GetComponent<Orb>().Data;
                 Debug.Log("Collided with Orb!");
-                rb.AddExplosionForce(expForce, pos, expRadius);
+                if (rbPos.x - pos.x >= 0.0f)
+                    expForceVec = new Vector2(expForwardForce * orbDataHit.OrbWeight, expUpForce * orbDataHit.OrbWeight);
+                else
+                    expForceVec = new Vector2(-expForwardForce * orbDataHit.OrbWeight, expUpForce * orbDataHit.OrbWeight);
+                Vector2 forcePos = new Vector2(rbPos.x, rbPos.y - (orbDataHit.CollideRad * orbDataHit.RenderScale));
+                rb.AddForceAtPosition(expForceVec, forcePos, ForceMode2D.Impulse);
+                //Instantiate(explosionEffect, forcePos, Quaternion.identity);
             }
         }
+    }
+    private void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, expRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(new Vector3(transform.position.x, (transform.position.y - noBounceOffset), 0.0f), new Vector3(6.0f, 0.06f, 1.0f));
     }
 }
