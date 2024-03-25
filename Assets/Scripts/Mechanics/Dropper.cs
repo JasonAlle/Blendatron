@@ -6,7 +6,7 @@ using UnityEngine;
 public class Dropper : MonoBehaviour
 {
     [SerializeField]
-    OrbSpawner spawner;
+     OrbSpawner spawner;
     [SerializeField]
     private Controls_Listener input;
     [SerializeField]
@@ -32,26 +32,10 @@ public class Dropper : MonoBehaviour
     private void HandleBlend()
     {
         isDisabled = true;
-        List<Orb> highOrbs = OrbManager.GetHighTierOrbs();
-        for (int i = 0; i < highOrbs.Count; i++)
-        {
-            if (highOrbs[i].gameObject != null)
-            {
-                highOrbs[i].PrepareForBlend();
-            }
-        }
     }
     private void HandleGame()
     {
         isDisabled = false;
-        List<Orb> highOrbs = OrbManager.GetHighTierOrbs();
-        for (int i = 0; i < highOrbs.Count; i++)
-        {
-            if (highOrbs[i].gameObject != null)
-            {
-                highOrbs[i].PrepareForBlend();
-            }
-        }
     }
     private void Start()
     {

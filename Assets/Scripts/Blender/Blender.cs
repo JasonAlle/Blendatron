@@ -1,26 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum BladeTypes
+{
+    NoSpin,
+    Single,
+    Double,
+    Triple,
+    None,
+}
 public class Blender : MonoBehaviour
 {
     [SerializeField]
-    private GameObject highBladeObject;
+    private BladeTypes bladeType;
     [SerializeField]
-    private GameObject midBladeObject;
+    private GameObject singleBlade;
     [SerializeField]
-    private GameObject lowBladeObject;
+    private GameObject doubleBlade;
     [SerializeField]
-    private ScoreListener scoreListener;
+    private GameObject tripleBlade;
     [SerializeField]
-    private float highBladeSpeed;
+    private float singleBladeSpeed;
     [SerializeField]     
-    private float midBladeSpeed;
+    private float doubleBladeSpeed;
     [SerializeField]      
-    private float lowBladeSpeed;
-
+    private float tripleBladeSpeed;
     private bool isBlending = false;
-
 
     private void OnEnable()
     {
@@ -35,13 +40,37 @@ public class Blender : MonoBehaviour
     {
 
     }
+    private void SpinBlades()
+    {
+        switch (bladeType)
+        {
+            case BladeTypes.NoSpin:
+                break;
+            case BladeTypes.None:
+                break;
+            case BladeTypes.Single:
+                singleBlade.transform.Rotate(Vector3.up, singleBladeSpeed * Time.fixedDeltaTime);
+                break;
+            case BladeTypes.Double:
+                singleBlade.transform.Rotate(Vector3.up, singleBladeSpeed * Time.fixedDeltaTime);
+                doubleBlade.transform.Rotate(Vector3.up, doubleBladeSpeed * Time.fixedDeltaTime);
+                break;
+            case BladeTypes.Triple:
+                singleBlade.transform.Rotate(Vector3.up, singleBladeSpeed * Time.fixedDeltaTime);
+                doubleBlade.transform.Rotate(Vector3.up, doubleBladeSpeed * Time.fixedDeltaTime);
+                tripleBlade.transform.Rotate(Vector3.up, tripleBladeSpeed * Time.fixedDeltaTime);
+                break;
+            default:
+                break;
+        }
+    }
     private void FixedUpdate()
     {
         if (isBlending == false)
             return;
-        highBladeObject.transform.Rotate(Vector3.up, highBladeSpeed * Time.fixedDeltaTime);
-        midBladeObject.transform.Rotate(Vector3.up, midBladeSpeed * Time.fixedDeltaTime);
-        lowBladeObject.transform.Rotate(Vector3.up, lowBladeSpeed * Time.fixedDeltaTime);
+        if (bladeType == BladeTypes.NoSpin || bladeType == BladeTypes.None)
+            return;
+        SpinBlades();
 
     }
 }

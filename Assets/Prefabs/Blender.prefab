@@ -313,13 +313,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8f6b7f57de0ad448a3eb8b6fcfcd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highBladeObject: {fileID: 2877840080744150501}
-  midBladeObject: {fileID: 1924790259774154890}
-  lowBladeObject: {fileID: 4664632233314232939}
-  scoreListener: {fileID: 11400000, guid: b0a814f428aa52c4f810d16e753e63e0, type: 2}
-  highBladeSpeed: 700
-  midBladeSpeed: -790
-  lowBladeSpeed: 1200
+  bladeType: 3
+  singleBlade: {fileID: 2877840080744150501}
+  doubleBlade: {fileID: 1924790259774154890}
+  tripleBlade: {fileID: 4664632233314232939}
+  singleBladeSpeed: 120
+  doubleBladeSpeed: -90
+  tripleBladeSpeed: 140
 --- !u!1 &2877840080744150501
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MatternizerListener
   m_EditorClassIdentifier: 
   matter: 0
-  maxMatter: 750
+  maxMatter: 350

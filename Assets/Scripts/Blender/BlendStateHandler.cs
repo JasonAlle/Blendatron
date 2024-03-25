@@ -70,7 +70,6 @@ public class BlendStateHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Blender timer is running: " + blenderTimer);
             blenderTimer += Time.fixedDeltaTime;
             UpdateTimerVisual();
         }

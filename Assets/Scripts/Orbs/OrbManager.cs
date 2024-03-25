@@ -8,6 +8,9 @@ public class OrbManager : MonoBehaviour
     private List<Orb> orbs = new List<Orb>();
     private int orbCount = 0; //For keeping count of current orbs
     private int orbIterator = 0; //For setting orbID
+    [SerializeField]
+    private StateListner stateListner;
+    bool isBlend = false;
     private void Awake()
     {
         if (Instance != null)
@@ -17,12 +20,49 @@ public class OrbManager : MonoBehaviour
         }
         Instance = this;
     }
-        public static void AddOrb(Orb orb)
+    private void OnEnable()
+    {
+        Instance.isBlend = false;
+        stateListner.BlendStateEvent += HandleBlend;
+        stateListner.GameplayStateEvent += HandleGame;
+    }
+    private void OnDisable()
+    {
+        stateListner.BlendStateEvent -= HandleBlend;
+        stateListner.GameplayStateEvent -= HandleGame;
+    }
+    private void HandleBlend()
+    {
+        Instance.isBlend = true;
+        List<Orb> highOrbs = OrbManager.GetHighTierOrbs();
+        for (int i = 0; i < highOrbs.Count; i++)
+        {
+            if (highOrbs[i].gameObject != null)
+            {
+                highOrbs[i].PrepareForBlend();
+            }
+        }
+    }
+    private void HandleGame()
+    {
+        Instance.isBlend = false;
+        List<Orb> highOrbs = OrbManager.GetHighTierOrbs();
+        for (int i = 0; i < highOrbs.Count; i++)
+        {
+            if (highOrbs[i].gameObject != null)
+            {
+                highOrbs[i].PrepareForGame();
+            }
+        }
+    }
+    public static void AddOrb(Orb orb)
     {
         Instance.orbCount++;
         Instance.orbIterator++;
         orb.OrbID = Instance.orbIterator;
         Instance.orbs.Add(orb);
+        if (Instance.isBlend && orb.IsHighTier)
+            orb.PrepareForBlend();
     }
     public static void RemoveOrb(Orb orbToRemove)
     {

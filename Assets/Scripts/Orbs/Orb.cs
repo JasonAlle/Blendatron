@@ -29,9 +29,7 @@ public class Orb : MonoBehaviour
     private Vector3 scaleIncrement = new Vector3(0.1f, 0.1f, 0.0f);
     [SerializeField]
     private float speedOfExpansion;
-    private float affectorAmount;
-    public float AffectorAmount { get { return affectorAmount; } set { affectorAmount = value; } }
-    private bool isFinishedExpanding = false;
+    private bool isExpanding = false;
     private void OnEnable()
     {
         if (data != null)
@@ -54,35 +52,7 @@ public class Orb : MonoBehaviour
         {
             isHighTier = true;
         }
-        SetAffectorAmount();
     }
-
-    private void SetAffectorAmount()
-    {
-        //switch (data.Tier)
-        //{
-        //    case OrbTiers.tier1:
-        //        affectorAmount = data.OrbWeight - 
-        //        break;
-        //    case OrbTiers.tier2:
-        //        break;
-        //    case OrbTiers.tier3:
-        //        break;
-        //    case OrbTiers.tier4:
-        //        break;
-        //    case OrbTiers.tier5:
-        //        break;
-        //    case OrbTiers.tier6:
-        //        break;
-        //    case OrbTiers.tier7:
-        //        break;
-        //    case OrbTiers.tier8:
-        //        break;
-        //    default:
-        //        break;
-        //}
-    }
-
     public void SetConstraints(RigidbodyConstraints2D constraint, bool isInit = false)
     {
         if (isInit)
@@ -118,13 +88,14 @@ public class Orb : MonoBehaviour
     public void HasEvolved()
     {
         isSpawnedEvolved = true;
+        isExpanding = true;
         this.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.0f);
         DropTheFucker();
         explosion.IsEvolved();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isFinishedExpanding)
+        if (isExpanding)
             return;
         if (!collision.gameObject.CompareTag("Orb"))
         {
@@ -149,7 +120,7 @@ public class Orb : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isFinishedExpanding == false)
+        if (isExpanding)
         {
             if (isSpawnedEvolved && this.gameObject.transform.localScale.x < data.RenderScale)
             {
@@ -157,7 +128,7 @@ public class Orb : MonoBehaviour
             }
             if (this.gameObject.transform.localScale.x >= data.RenderScale)
             {
-                isFinishedExpanding = true;
+                isExpanding = false;
                 InitBounds();
             }
         }

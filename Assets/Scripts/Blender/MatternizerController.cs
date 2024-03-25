@@ -30,8 +30,9 @@ public class MatternizerController : MonoBehaviour
 
     private void HandleGame()
     {
-        slider.value = 0;
-        slider.maxValue += 100;
+        matterListener.Matter = 0;
+        matterListener.MaxMatter += 100;
+        SetMatterValues();
         isBlending = false;
     }
 
@@ -39,7 +40,11 @@ public class MatternizerController : MonoBehaviour
     {
         isBlending = true;
     }
-
+    private void SetMatterValues()
+    {
+        slider.value = matterListener.Matter;
+        slider.maxValue = matterListener.MaxMatter;
+    }
     private void HandleMatterIncrease(int amount)
     {
         if (isBlending)
